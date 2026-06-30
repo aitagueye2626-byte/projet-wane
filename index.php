@@ -27,7 +27,24 @@ $categories = [
 ];
 
 
+echo "\n--- Catégories sans produits ---\n";
 
+foreach ($categories as $categorie) {
+    // empty() vérifie si le tableau "produits" est vide
+    if (empty($categorie["produits"])) {
+        echo "Nom : " . $categorie["nom"] . " (Code : " . $categorie["code"] . ")\n";
+    }
+}
+
+
+
+echo "\n--- Catégories sans produits ---\n";
+
+foreach ($categories as $categorie) {
+    if (empty($categorie["produits"])) {
+        echo "Nom : " . $categorie["nom"] . " (Code : " . $categorie["code"] . ")\n";
+    }
+}
 
 
 
