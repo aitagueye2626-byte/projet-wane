@@ -91,3 +91,32 @@ function enregistrerCategorie(): void {
 }
 
 enregistrerCategorie();
+
+
+function ajouterProduitCategorie(): void {
+    global $categories;
+    echo "\n--- Ajout d'un produit dans une catégorie ---\n";
+    
+    $code = readline("Saisir le code de la catégorie : ");
+    
+    $index = rechercheCategorieParCle($categories, "code", $code);
+    
+    if ($index !== false) {
+        echo "Catégorie trouvée : " . $categories[$index]["nom"] . "\n";
+        
+        $produit = [
+            "nom" => readline("Saisir le nom du produit (ex: Riz) : "),
+            "reference" => readline("Saisir la référence : "),
+            "prix" => (int)readline("Saisir le prix : "),
+            "quantite" => (int)readline("Saisir la quantité : ")
+        ];
+        
+        $categories[$index]["produits"][] = $produit;
+        echo "Succès : Produit ajouté avec succès !\n";
+        
+    } else {
+        echo "Désolé, la catégorie avec le code '$code' n'existe pas...\n";
+    }
+}
+
+ajouterProduitCategorie();
