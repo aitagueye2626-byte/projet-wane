@@ -85,7 +85,6 @@ do {
     }
 } while ($nomExiste); 
 
-// Ajout direct au tableau
 $categories[] = [
     "code" => $code,
     "nom" => $nom,
@@ -93,6 +92,33 @@ $categories[] = [
 ];
 
 echo "Succès : Catégorie '$nom' ajoutée !\n";
+
+
+$categorieExiste = false;
+$code = readline("saisir le code : ");
+
+for ($i = 0; $i < count($categories); $i++) {
+    if ($categories[$i]["code"] === $code) {
+        $categorieExiste = true;
+        $index = $i; 
+        break;
+    }
+}
+
+if ($categorieExiste) {
+    $produit = [
+        "nom" => readline("saisir le nom : "),
+        "reference" => readline("saisir la reference : "),
+        "prix" => (int)readline("saisir le prix : "),
+        "quantite" => (int)readline("saisir la quantité : ")
+    ];
+    
+    $categories[$index]["produits"][] = $produit;
+    echo "Produit ajouté avec succès !\n";
+    
+} else {
+    echo " désolé , la categorie n'existe pas...\n";
+}
 
 
 ?>
