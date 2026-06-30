@@ -120,3 +120,38 @@ function ajouterProduitCategorie(): void {
 }
 
 ajouterProduitCategorie();
+
+
+function enregistrerCategorieAvecProduits(): void {
+    global $categories;
+    echo "\n--- Enregistrement d'une catégorie complète et de ses produits ---\n";
+
+    $code = saisieChampObligatoireEtUnique($categories, "Entrez le code de la nouvelle catégorie (4 chiffres) : ", "Champs obligatoire !", "code");
+    $nom = saisieChampObligatoireEtUnique($categories, "Entrez le nom de la nouvelle catégorie : ", "Champs obligatoire !", "nom");
+
+    $listeProduits = [];
+    do {
+        echo "\n--- Saisie d'un produit ---\n";
+        $produit = [
+            "nom" => readline("Saisir le nom du produit : "),
+            "reference" => readline("Saisir la référence : "),
+            "prix" => (int)readline("Saisir le prix : "),
+            "quantite" => (int)readline("Saisir la quantité : ")
+        ];
+        
+        $listeProduits[] = $produit;
+
+        $choix = strtolower(readline("Voulez-vous ajouter un autre produit à cette catégorie ? (oui/non) : "));
+        
+    } while ($choix === "oui");
+
+    $categories[] = [
+        "code" => $code,
+        "nom" => $nom,
+        "produits" => $listeProduits
+    ];
+
+    echo "Succès : La catégorie '$nom' et ses produits ont été enregistrés avec succès !\n";
+}
+
+enregistrerCategorieAvecProduits();
