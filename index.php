@@ -120,5 +120,70 @@ if ($categorieExiste) {
     echo " désolé , la categorie n'existe pas...\n";
 }
 
+// ==========================================
+// 5. Ajouter une catégorie avec plusieurs produits
+// ==========================================
+
+echo "\n--- Ajout d'une catégorie et de ses produits ---\n";
+
+// Saisie et validation du CODE avec boucle FOR
+do {
+    $codeExiste = false;
+    $code = readline("saisir le code (4 chiffres) : ");
+
+    if (empty($code) || !ctype_digit($code) || strlen($code) !== 4) {
+        echo "Erreur : Le code doit contenir 4 chiffres.\n";
+        $codeExiste = true;
+    } else {
+        for ($i = 0; $i < count($categories); $i++) {
+            if ($categories[$i]["code"] === $code) {
+                echo "le code existe deja ...\n";
+                $codeExiste = true;
+                break;
+            }
+        }
+    }
+} while ($codeExiste);
+
+// Saisie et validation du NOM avec boucle FOR
+do {
+    $nomExiste = false;
+    $nom = readline("saisir le nom : ");
+
+    if (empty($nom)) {
+        echo "le nom est obligatoire\n";
+        $nomExiste = true;
+    } else {
+        for ($i = 0; $i < count($categories); $i++) {
+            if (strtolower($categories[$i]["nom"]) === strtolower($nom)) {
+                echo "le nom existe deja ...\n";
+                $nomExiste = true;
+                break;
+            }
+        }
+    }
+} while ($nomExiste);
+
+$produits = [];
+do {
+    $produit = [
+        "nom" => readline("saisir le nom du produit : "),
+        "reference" => readline("saisir la reference : "),
+        "prix" => (int)readline("saisir le prix : "),
+        "quantite" => (int)readline("saisir la quantité : ")
+    ];
+    $produits[] = $produit;
+
+    $choix = strtolower(readline("voulez vous continuer oui/non : "));
+    
+} while ($choix === "oui");
+
+$categories[] = [
+    "code" => $code,
+    "nom" => $nom,
+    "produits" => $produits
+];
+
+echo "Succès : La catégorie complète a bien été ajoutée !\n";
 
 ?>
