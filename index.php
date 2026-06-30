@@ -26,3 +26,14 @@ $categories = [
         "produits" => [] 
     ]
 ];
+
+function afficheCategorieSansProduit(array $categories): void {
+    echo "\n--- Catégories sans produits ---\n";
+    for ($i = 0; $i < count($categories); $i++) {
+        if (empty($categories[$i]["produits"])) {
+            echo $categories[$i]["nom"] . "\n";
+        }
+    }
+}
+
+afficheCategorieSansProduit($categories);
